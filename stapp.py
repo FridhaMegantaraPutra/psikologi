@@ -3,6 +3,7 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 from PIL import Image
+import pyperclip  # Library for copying text to clipboard
 
 # Load environment variables from .env file
 load_dotenv()
@@ -38,25 +39,28 @@ def app():
     st.image(img)
 
     history = []
-    st.title("🗿 Batu psikologi")
+    st.title("🗿 Asisten Psikologi")
     st.caption(
-        "🚀 daripada kalian gabut mending curhat sama si batu ini, batu ini menggunakan llama3")
+        "🚀 Daripada kalian gabut mending curhat sama si asisten ini, asisten ini menggunakan llama3")
 
-    system_prompt = "nama kamu adalah profesor batu ,Kamu adalah asisten psikologi yang handal. Gunakan bahasa Indonesia untuk menjawab semua input."
+    system_prompt = "Nama kamu adalah asisten psikologi, kamu ahli dalam memberikan saran. Gunakan bahasa Indonesia untuk berkomunikasi."
     if 'messages' not in st.session_state:
         st.session_state.messages = [{"role": "system", "content": system_prompt}, {
-            "role": "assistant", "content": "kalian bisa curhat disini dengan profesor batu lulusan S 1000 psikologi"}]
+            "role": "assistant", "content": "Kalian bisa curhat di sini dengan asisten psikologi yang selalu siap membantu."}]
 
     # Display chat history, excluding system prompt
     for msg in st.session_state.messages:
         if msg["role"] != "system":
-            st.chat_message(msg["role"]).write(msg["content"])
+            if msg["role"] == "assistant":
+                st.chat_message("🗿").write(msg["content"])
+            elif msg["role"] == "user":
+                st.chat_message("🙂").write(msg["content"])
 
     # Handle user input
     if prompt := st.chat_input():
         # Append user message to chat history
         st.session_state.messages.append({"role": "user", "content": prompt})
-        st.chat_message("user").write(prompt)
+        st.chat_message("🙂").write(prompt)
 
         # Fetch response from Groq API
         response = get_reply(prompt, st.session_state.messages)
@@ -65,6 +69,16 @@ def app():
         st.session_state.messages.append(
             {"role": "assistant", "content": response})
         st.chat_message("🗿").write(response)
+
+    # Button to copy conversation text
+    if st.button("Salin Teks"):
+        conversation_text = "\n".join(
+            f"🙂: {msg['content']}" if msg["role"] == "user" else f"🗿: {msg['content']}"
+            for msg in st.session_state.messages if msg["role"] != "system"
+        )
+        # Copy conversation text to clipboard
+        pyperclip.copy(conversation_text)
+        st.info("Percakapan telah disalin sebagai teks!")
 
 
 # Run the app

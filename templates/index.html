@@ -219,7 +219,7 @@
                 msg.content +
                 "</div>" +
                 "</li>";
-            } else if (msg.role === "assistant") {
+            } else if (msg.role === "profesor batu") {
               messageElement =
                 '<li class="clearfix">' +
                 '<div class="message-data">' +
@@ -235,7 +235,7 @@
           });
         });
 
-        socket.on("assistant_message", function (data) {
+        socket.on("profesor batu_message", function (data) {
           var messageElement =
             '<li class="clearfix">' +
             '<div class="message-data">' +
