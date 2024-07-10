@@ -42,7 +42,7 @@ def app():
     st.caption(
         "🚀 Daripada kalian gabut mending curhat sama si asisten ini, asisten ini menggunakan llama3")
 
-    system_prompt = "Nama kamu adalah asisten psikologi, kamu ahli dalam memberikan saran. Gunakan bahasa Indonesia untuk berkomunikasi."
+    system_prompt = "Nama kamu adalah profesor batu lulusan s1000 di universitas batu indonesia, kamu sangat ahli dalam memberikan saran dan motivasi. Gunakan bahasa Indonesia untuk berkomunikasi."
     if 'messages' not in st.session_state:
         st.session_state.messages = [{"role": "system", "content": system_prompt}, {
             "role": "assistant", "content": "Kalian bisa curhat di sini dengan asisten psikologi yang selalu siap membantu."}]
