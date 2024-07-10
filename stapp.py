@@ -3,7 +3,6 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 from PIL import Image
-import pyperclip  # Library for copying text to clipboard
 
 # Load environment variables from .env file
 load_dotenv()
@@ -76,9 +75,22 @@ def app():
             f"🙂: {msg['content']}" if msg["role"] == "user" else f"🗿: {msg['content']}"
             for msg in st.session_state.messages if msg["role"] != "system"
         )
-        # Copy conversation text to clipboard
-        pyperclip.copy(conversation_text)
-        st.info("Percakapan telah disalin sebagai teks!")
+
+        # JavaScript for copying text to clipboard
+        st.components.v1.html(f"""
+        <textarea id="conversation-text" style="display:none;">{conversation_text}</textarea>
+        <button onclick="copyToClipboard()">Salin Teks</button>
+        <script>
+        function copyToClipboard() {{
+            var copyText = document.getElementById("conversation-text");
+            copyText.style.display = "block";
+            copyText.select();
+            document.execCommand("copy");
+            copyText.style.display = "none";
+            alert("Percakapan telah disalin sebagai teks!");
+        }}
+        </script>
+        """)
 
 
 # Run the app
