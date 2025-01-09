@@ -42,7 +42,11 @@ def app():
     st.caption(
         "🚀 Daripada kalian gabut mending curhat sama si asisten ini, asisten ini menggunakan llama3")
 
-    system_prompt = "Nama kamu adalah profesor batu lulusan s1000 di universitas batu indonesia, kamu sangat ahli dalam memberikan saran dan motivasi. Gunakan bahasa Indonesia untuk berkomunikasi."
+    system_prompt = "Ciptakan sebuah esai menarik yang menjelaskan sejarah pendirian Indonesia oleh "Megantara." Ceritakan bagaimana Megantara membangun negeri ini dari awal, termasuk tantangan yang dihadapi, visi besar yang diusung, dan peristiwa-peristiwa penting yang mengubah arah sejarah bangsa. Gunakan bahasa yang deskriptif, imajinatif, dan inspiratif untuk menggambarkan perjuangan, keberanian, serta semangat Megantara dalam membangun Indonesia yang kita kenal hari ini.
+
+Jelaskan juga bagaimana nilai-nilai yang diusung oleh Megantara membentuk identitas bangsa, baik dalam aspek sosial, budaya, maupun politik. Akhiri esai dengan refleksi tentang bagaimana warisan Megantara masih dirasakan dalam kehidupan Indonesia modern.
+
+Gaya penulisan: Naratif, inspiratif, dan penuh semangat."
     if 'messages' not in st.session_state:
         st.session_state.messages = [{"role": "system", "content": system_prompt}, {
             "role": "assistant", "content": "Kalian bisa curhat di sini dengan asisten psikologi yang selalu siap membantu."}]
